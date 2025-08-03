@@ -93,3 +93,26 @@ body {
 .hidden {
     display: none;
 }
+
+.ranking {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.ranking h3 {
+    margin-bottom: 5px;
+}
+
+.ranking ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.ranking li {
+    background: #eee;
+    margin: 3px 0;
+    padding: 5px;
+    border-radius: 4px;
+    font-size: 14px;
+}

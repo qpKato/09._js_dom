@@ -7,6 +7,7 @@ const restartButton = document.getElementById("restartButton");
 const overlay = document.getElementById("gameOver");
 const finalName = document.getElementById("finalName");
 const finalScore = document.getElementById("finalScore");
+const rankingList = document.getElementById("rankingList");
 
 let colors = ["red", "blue", "green", "yellow", "purple", "orange"];
 let score = 0;
@@ -15,7 +16,8 @@ let timer;
 let targetColor = "";
 let playerName = "";
 
-// Definir a cor alvo
+let ranking = JSON.parse(localStorage.getItem("ranking")) || [];
+
 function setTargetColor() {
     targetColor = colors[Math.floor(Math.random() * colors.length)];
     targetColorDisplay.textContent = targetColor;
@@ -25,7 +27,6 @@ function createGrid() {
     grid.innerHTML = "";
 
     let gridColors = Array.from({ length: 9 }, () => colors[Math.floor(Math.random() * colors.length)]);
-    
     const forcedIndex = Math.floor(Math.random() * 9);
     gridColors[forcedIndex] = targetColor;
 
@@ -52,6 +53,24 @@ function createGrid() {
     });
 }
 
+function updateRanking() {
+    ranking.push({ name: playerName, score });
+    ranking.sort((a, b) => b.score - a.score);
+    ranking = ranking.slice(0, 5); // manter só os 5 melhores
+    localStorage.setItem("ranking", JSON.stringify(ranking));
+
+    renderRanking();
+}
+
+function renderRanking() {
+    rankingList.innerHTML = "";
+    ranking.forEach((player, index) => {
+        const li = document.createElement("li");
+        li.textContent = `${index + 1}º - ${player.name}: ${player.score} pts`;
+        rankingList.appendChild(li);
+    });
+}
+
 function startGame() {
     playerName = document.getElementById("name").value.trim();
     if (!playerName) {
@@ -67,6 +86,7 @@ function startGame() {
 
     setTargetColor();
     createGrid();
+    renderRanking();
 
     timer = setInterval(() => {
         time--;
@@ -83,7 +103,11 @@ function endGame() {
     overlay.classList.remove("hidden");
     finalName.textContent = playerName;
     finalScore.textContent = score;
+
+    updateRanking();
 }
 
 startButton.addEventListener("click", startGame);
 restartButton.addEventListener("click", startGame);
+
+renderRanking();
