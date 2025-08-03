@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Desafio das Cores</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>🎨 Desafio das Cores</h1>
+
+        <div class="player-name">
+            <label for="name">Nome do jogador:</label>
+            <input type="text" id="name" placeholder="Digite seu nome">
+        </div>
+
+        <button id="startButton">Jogar</button>
+
+        <div class="info">
+            <p class="score-time">
+                Pontuação: <span id="score">0</span> | 
+                Tempo restante: <span id="time">30</span>s
+            </p>
+        </div>
+
+        <div class="target-color">
+            <p>Cor a ser encontrada: <span id="targetColor">---</span></p>
+        </div>
+
+        <div id="grid" class="grid"></div>
+    </div>
+
+    <div id="gameOver" class="overlay hidden">
+        <div class="game-over-box">
+            <h2>Fim de Jogo!</h2>
+            <p>Nome: <span id="finalName"></span></p>
+            <p>Pontuação: <span id="finalScore"></span></p>
+            <button id="restartButton">Jogar Novamente</button>
+        </div>
+    </div>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
